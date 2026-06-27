@@ -116,3 +116,17 @@ async def delete_user_documents(user_id: str) -> int:
         )
     )
     return count
+
+async def delete_user_persona_notes(user_id: str) -> None:
+    """Delete only the persona note documents for a user to avoid duplicates."""
+    client = get_client()
+    client.delete(
+        collection_name=COLLECTION,
+        points_selector=Filter(
+            must=[
+                FieldCondition(key="user_id", match=MatchValue(value=user_id)),
+                FieldCondition(key="type", match=MatchValue(value="persona_note"))
+            ]
+        )
+    )
+
