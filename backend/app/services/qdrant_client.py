@@ -5,7 +5,7 @@ from app.config import settings
 from app.services.embeddings import embed_text, embed_batch
 
 def get_client() -> QdrantClient:
-    return QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY or None)
+    return QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY or None, timeout=30.0)
 
 COLLECTION = "user_voice_memory"
 
